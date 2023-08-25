@@ -50,3 +50,10 @@ spec:
             name: order-app
             port: 
               name: web
+      - path: /notification
+        pathType: Prefix
+        backend:
+          service:
+            name: notification-app
+            port: 
+              name: web

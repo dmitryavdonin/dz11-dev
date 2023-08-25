@@ -2,32 +2,38 @@ book:
   replicaCount: "1"
   port: 8000
   container:
-    image: dmitryavdonin/otus-dz9-book:latest
+    image: dmitryavdonin/otus-dz11-book:latest
 user:
   replicaCount: "1"
   port: 8000
   container:
-    image: dmitryavdonin/otus-dz9-user:latest
+    image: dmitryavdonin/otus-dz11-user:latest
 delivery:
   replicaCount: "1"
   port: 8000
   container:
-    image: dmitryavdonin/otus-dz9-delivery:latest
+    image: dmitryavdonin/otus-dz11-delivery:latest
 store:
   replicaCount: "1"
   port: 8000
   container:
-    image: dmitryavdonin/otus-dz9-store:latest
+    image: dmitryavdonin/otus-dz11-store:latest
 payment:
   replicaCount: "1"
   port: 8000
   container:
-    image: dmitryavdonin/otus-dz9-payment:latest
+    image: dmitryavdonin/otus-dz11-payment:latest
 order:
   replicaCount: "1"
   port: 8000
   container:
-    image: dmitryavdonin/otus-dz9-order:latest
+    image: dmitryavdonin/otus-dz11-order:latest
+
+notification:
+  replicaCount: "1"
+  port: 8000
+  container:
+    image: dmitryavdonin/otus-dz11-notification:latest
 
 bookdb:
   image:
@@ -125,6 +131,25 @@ paymentdb:
     postgresql: "5432"
 
 orderdb:
+  image:
+    registry: docker.io
+    repository: bitnami/postgresql
+    tag: 15.2.0-debian-11-r16
+    digest: ""
+    pullPolicy: IfNotPresent
+    pullSecrets: []
+    debug: false
+  auth:
+    enablePostgresUser: true
+    postgresPassword: "manager"
+    username: "postgres"
+    password: "manager"
+    database: "postgres"
+  architecture: standalone
+  containerPorts:
+    postgresql: "5432"
+
+notificationdb:
   image:
     registry: docker.io
     repository: bitnami/postgresql

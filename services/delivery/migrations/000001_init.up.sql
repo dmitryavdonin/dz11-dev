@@ -1,3 +1,5 @@
+drop table if exists "delivery";
+
 CREATE TABLE "delivery" (
     "id" serial primary key,
     "user_id" integer not null,
@@ -8,4 +10,4 @@ CREATE TABLE "delivery" (
     "reason" varchar,
     "created_at" timestamp not null,
     "modified_at" timestamp not null
-)
+);

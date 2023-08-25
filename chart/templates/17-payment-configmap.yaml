@@ -6,3 +6,6 @@ data:
   APP_PORT: "{{ .Values.payment.port}}"
   APP_SERVICE_NAME: "payment_service"
   API_USER_URI: "http://user-app.default.svc.cluster.local/user"
+  KAFKA_HOST: "my-cluster-kafka-bootstrap.kafka.svc.cluster.local"
+  KAFKA_PORT: "9092"
+  KAFKA_PAYMENT_STATUS_TOPIC: "payment-status"  

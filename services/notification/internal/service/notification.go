@@ -17,7 +17,7 @@ func (s *NotificationService) Create(input model.Notification) (int, error) {
 	return s.repo.Create(input)
 }
 
-func (s *NotificationService) GetById(order_id int) (model.Notification, error) {
+func (s *NotificationService) GetById(order_id int) ([]model.Notification, error) {
 	return s.repo.GetById(order_id)
 }
 

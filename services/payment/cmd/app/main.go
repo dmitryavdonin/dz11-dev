@@ -7,6 +7,7 @@ import (
 	"os/signal"
 	"syscall"
 
+	"payment/internal/broker"
 	"payment/internal/config"
 	"payment/internal/handler"
 	"payment/internal/payment"
@@ -51,7 +52,11 @@ func main() {
 
 	repos := repository.NewRepository(db, cfg.API.UserURI)
 	services := service.NewService(repos)
-	handlers := handler.NewHandler(services)
+
+	// create kafaka producer
+	producer := broker.InitKafkaProducer(cfg.Kafka.Host, cfg.Kafka.Port, cfg.Kafka.PaymentStatusTopic)
+	// create hanlers
+	handlers := handler.NewHandler(services, producer)
 
 	var port = cfg.App.Port
 

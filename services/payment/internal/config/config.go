@@ -20,12 +20,11 @@ type Config struct {
 		DBname   string
 	}
 	API struct {
-    		UserURI string
+		UserURI string
 	}
 	Kafka struct {
 		Host               string
 		Port               string
-		OrderCreatedTopic  string
 		PaymentStatusTopic string
 	}
 }

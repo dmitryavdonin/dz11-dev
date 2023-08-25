@@ -1,3 +1,4 @@
+drop table if exists "order";
 CREATE TABLE "order" (
     "id" serial primary key,
     "user_id" integer not null,
@@ -9,4 +10,4 @@ CREATE TABLE "order" (
     "delivery_date" timestamp,
     "created_at" timestamp not null,
     "modified_at" timestamp not null
-)
+);

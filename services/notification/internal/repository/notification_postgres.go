@@ -22,10 +22,13 @@ func (r *NotificationPostgres) Create(n model.Notification) (int, error) {
 	return n.ID, nil
 }
 
-func (r *NotificationPostgres) GetById(orderId int) (model.Notification, error) {
-	var item model.Notification
-	result := r.db.First(&item, "order_id = ?", orderId)
-	return item, result.Error
+func (r *NotificationPostgres) GetById(orderId int) ([]model.Notification, error) {
+	var items []model.Notification
+	result := r.db.Where("order_id = ?", orderId).Find(&items)
+	if result.Error != nil {
+		return nil, result.Error
+	}
+	return items, result.Error
 }
 
 func (r *NotificationPostgres) GetAll(limit int, offset int) ([]model.Notification, error) {

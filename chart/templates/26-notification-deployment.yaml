@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: notification-app
+spec:
+  replicas: {{ .Values.notification.replicaCount}}
+  selector:
+    matchLabels:
+      app: notification-app
+  template:
+    metadata:
+      labels:
+        app: notification-app
+    spec:
+      containers:
+      - name: notification-app
+        image: {{ .Values.notification.container.image}}
+        imagePullPolicy: Always
+        ports:
+          - name: http
+            containerPort: {{ .Values.notification.port}}
+        envFrom:
+          - configMapRef:
+              name: notification-app-config
+          - secretRef:
+              name: notification-postgres-secret

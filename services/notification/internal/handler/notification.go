@@ -56,13 +56,13 @@ func (h *Handler) getByOrderId(c *gin.Context) {
 		return
 	}
 
-	order, err := h.services.Notification.GetById(id)
+	items, err := h.services.Notification.GetById(id)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 
-	c.JSON(http.StatusOK, order)
+	c.JSON(http.StatusOK, gin.H{"status": "success", "results": len(items), "data": items})
 }
 
 // get all orders
@@ -75,7 +75,6 @@ func (h *Handler) getAll(c *gin.Context) {
 	intLimit, _ := strconv.Atoi(limit)
 	offset := (intPage - 1) * intLimit
 
-	var items []model.Notification
 	items, err := h.services.Notification.GetAll(intLimit, offset)
 	if err != nil {
 		c.JSON(http.StatusBadGateway,

@@ -1,3 +1,4 @@
+drop table if exists "book";
 CREATE TABLE "book" (
     "id" serial primary key,
     "price" integer not null,
@@ -5,4 +6,4 @@ CREATE TABLE "book" (
     "author" varchar not null,
     "created_at" timestamp not null,
     "modified_at" timestamp not null
-)
+);
