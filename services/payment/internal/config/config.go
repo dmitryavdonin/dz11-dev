@@ -22,6 +22,12 @@ type Config struct {
 	API struct {
     		UserURI string
 	}
+	Kafka struct {
+		Host               string
+		Port               string
+		OrderCreatedTopic  string
+		PaymentStatusTopic string
+	}
 }
 
 func InitConfig(prefix string) (*Config, error) {

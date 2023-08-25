@@ -10,6 +10,18 @@
             "request": "launch",
             "mode": "debug",
             "program": "${workspaceFolder}\\cmd\\app\\main.go",
+            "env": {
+                "APP_SERVICE_NAME": "payment_service",
+                "APP_PORT": "8001",
+                "DB_DBNAME": "postgres",
+                "DB_HOST": "localhost",
+                "DB_PORT": "5432",
+                "DB_USERNAME": "postgres",
+                "DB_PASSWORD": "manager",
+                "KAFKA_HOST": "localhost",
+                "KAFKA_PORT": "29092",
+                "KAFKA_PAYMENT_STATUS_TOPIC": "payment_status"
+            },
         }
     ]
 }

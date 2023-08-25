@@ -1,14 +1,41 @@
 package handler
 
 import (
+	"encoding/json"
 	"net/http"
 	"payment/internal/model"
 	"strconv"
 	"time"
 
+	"github.com/IBM/sarama"
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
 )
+
+func (och Handler) sendPaymentStatusEvent(order_id int, user_id int, status string, reason string) error {
+	logrus.Print("sendPaymentStatusEvent(): BEGIN")
+	msg := model.PaymentStatusMsg{Data: model.PaymentStatus{
+		OrderId: order_id,
+		UserId:  user_id,
+		Status:  status,
+		Reason:  reason,
+	}}
+
+	msgStr, err := json.Marshal(msg)
+	if err != nil {
+		logrus.Errorf("sendPaymentStatusEvent(): Cannot marshal the message, error = %s", err.Error())
+		return err
+	}
+	producerMsg := &sarama.ProducerMessage{Topic: och.kafkaProducer.PaymentStatusTopic, Value: sarama.StringEncoder(msgStr)}
+	_, _, err = och.kafkaProducer.Producer.SendMessage(producerMsg)
+	if err != nil {
+		logrus.Errorf("sendPaymentStatusEvent(): Cannot send the message, error = %s", err.Error())
+		return err
+	} else {
+		logrus.Print("sendPaymentStatusEvent(): END")
+		return nil
+	}
+}
 
 // create payment
 func (h *Handler) createPayment(c *gin.Context) {
@@ -86,6 +113,11 @@ func (h *Handler) createPayment(c *gin.Context) {
 			return
 		}
 
+		if err := h.sendPaymentStatusEvent(pay.OrderId, pay.UserId, pay.Status, pay.Reason); err != nil {
+			logrus.Errorf("CreatePayment(): Cannot send payment_status_event for order_id = %d, user_id = %d,  status = %s, reaspn = %s, error =  %s",
+				pay.OrderId, pay.UserId, pay.Status, pay.Reason, err.Error())
+		}
+
 		c.JSON(http.StatusOK, pay)
 
 		logrus.Printf("CreatePayment(): Payment failed. Not enough balance for order_id = %d", pay.OrderId)
@@ -102,6 +134,11 @@ func (h *Handler) createPayment(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, pay)
 		logrus.Errorf("CreatePayment(): Cannot update payment for order_id = %d, error = %s", pay.OrderId, err.Error())
 		return
+	}
+
+	if err := h.sendPaymentStatusEvent(pay.OrderId, pay.UserId, pay.Status, pay.Reason); err != nil {
+		logrus.Errorf("CreatePayment(): Cannot send payment_status_event for order_id = %d, user_id = %d,  status = %s, reaspn = %s, error =  %s",
+			pay.OrderId, pay.UserId, pay.Status, pay.Reason, err.Error())
 	}
 
 	logrus.Printf("CreatePayment(): Payment created successfuly for order_id = %d", pay.OrderId)
@@ -250,6 +287,11 @@ func (h *Handler) cancelPayment(c *gin.Context) {
 		})
 		logrus.Errorf("cancelPayment(): Cannot update payment status with canceled, order_id = %d, error = %s", input.OrderId, err.Error())
 		return
+	}
+
+	if err := h.sendPaymentStatusEvent(pay.OrderId, pay.UserId, pay.Status, pay.Reason); err != nil {
+		logrus.Errorf("cancelPayment(): Cannot send payment_status_event for order_id = %d, user_id = %d,  status = %s, reaspn = %s, error =  %s",
+			pay.OrderId, pay.UserId, pay.Status, pay.Reason, err.Error())
 	}
 
 	c.JSON(http.StatusOK, pay)
