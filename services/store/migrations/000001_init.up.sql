@@ -1,4 +1,3 @@
-drop table if exists "store_book";
 CREATE TABLE "store_book" (
     "id" serial primary key,
     "book_id" integer not null,
@@ -7,7 +6,6 @@ CREATE TABLE "store_book" (
     "modified_at" timestamp not null
 );
 
-drop table if exists "store_order";
 CREATE TABLE "store_order" (
     "id" serial primary key,
     "order_id" integer not null,

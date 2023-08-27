@@ -1,4 +1,3 @@
-drop table if exists "notification";
 CREATE TABLE "notification" (
     "id" serial primary key,
     "user_id" integer not null,

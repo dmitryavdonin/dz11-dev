@@ -1,10 +1,10 @@
 {
 	"info": {
-		"_postman_id": "c15d819c-e99d-4471-8c68-0b3bf00bbfcf",
-		"name": "dz9",
+		"_postman_id": "d6f3a5b2-9c30-4092-9779-0fe39bf8f65f",
+		"name": "dz11",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "795865",
-		"_collection_link": "https://otus-dmitryavdonin.postman.co/workspace/otus~82993246-0f01-4d25-adef-9e5b9e2d034b/collection/795865-c15d819c-e99d-4471-8c68-0b3bf00bbfcf?action=share&creator=795865&source=collection_link"
+		"_collection_link": "https://otus-dmitryavdonin.postman.co/workspace/otus~82993246-0f01-4d25-adef-9e5b9e2d034b/collection/795865-d6f3a5b2-9c30-4092-9779-0fe39bf8f65f?action=share&source=collection_link&creator=795865"
 	},
 	"item": [
 		{
@@ -358,6 +358,47 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Проверить нотификации по заказу 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Проверить нотификации по заказу 1\", function () {\r",
+									"    var resp = JSON.parse(responseBody);\r",
+									"    console.log(resp);\r",
+									"    pm.response.to.have.status(200);\r",
+									"    resp[\"status\"] = \"success\"\r",
+									"    resp[\"results\"] = 1\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/notification/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"notification",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{order1_id}}"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"description": "Успешно проходят все шаги саги по созданию заказа:\n\n1. размещение заказа на складе\n2. оплата заказа\n3. оформление доставки заказа"
@@ -568,6 +609,47 @@
 							],
 							"path": [
 								"delivery",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{order2_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Проверить нотификации по заказу 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Проверить нотификации по заказу 2\", function () {\r",
+									"    var resp = JSON.parse(responseBody);\r",
+									"    console.log(resp);\r",
+									"    pm.response.to.have.status(200);\r",
+									"    resp[\"status\"] = \"success\"\r",
+									"    resp[\"results\"] = 0\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/notification/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"notification",
 								":id"
 							],
 							"variable": [
@@ -791,6 +873,47 @@
 							],
 							"path": [
 								"delivery",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{order3_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Проверить нотификации по заказу 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Проверить нотификации по заказу 3\", function () {\r",
+									"    var resp = JSON.parse(responseBody);\r",
+									"    console.log(resp);\r",
+									"    pm.response.to.have.status(200);\r",
+									"    resp[\"status\"] = \"success\"\r",
+									"    resp[\"results\"] = 1\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/notification/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"notification",
 								":id"
 							],
 							"variable": [
@@ -1027,6 +1150,47 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Проверить нотификации по заказу 4",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Проверить нотификации по заказу 3\", function () {\r",
+									"    var resp = JSON.parse(responseBody);\r",
+									"    console.log(resp);\r",
+									"    pm.response.to.have.status(200);\r",
+									"    resp[\"status\"] = \"success\"\r",
+									"    resp[\"results\"] = 2\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/notification/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"notification",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{order4_id}}"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"description": "1. размещение заказа на складе - успешно\n2. оплата заказа - успешно\n3. оформление доставки заказа - не успешно (нет курьеров), откатить шаг 2, шаг 1"
@@ -1084,18 +1248,23 @@
 			"type": "string"
 		},
 		{
+			"key": "baseUrl",
+			"value": "http://arch.homework",
+			"type": "string"
+		},
+		{
 			"key": "delivery_address1",
 			"value": "\"Moscow, Shabolovka, 13\"",
 			"type": "string"
 		},
 		{
 			"key": "delivery_date1",
-			"value": "\"2023-08-23\"",
+			"value": "\"2024-08-23\"",
 			"type": "string"
 		},
 		{
 			"key": "order1_id",
-			"value": "",
+			"value": "13",
 			"type": "string"
 		},
 		{

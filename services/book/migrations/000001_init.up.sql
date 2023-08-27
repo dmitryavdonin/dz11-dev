@@ -1,4 +1,3 @@
-drop table if exists "book";
 CREATE TABLE "book" (
     "id" serial primary key,
     "price" integer not null,

@@ -1,5 +1,3 @@
-drop table if exists "delivery";
-
 CREATE TABLE "delivery" (
     "id" serial primary key,
     "user_id" integer not null,

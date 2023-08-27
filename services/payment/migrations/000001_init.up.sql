@@ -1,4 +1,3 @@
-drop table if exists "payment";
 CREATE TABLE "payment" (
     "id" serial primary key,
     "user_id" integer not null,

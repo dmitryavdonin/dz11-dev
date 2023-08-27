@@ -1,4 +1,3 @@
-drop table if exists "order";
 CREATE TABLE "order" (
     "id" serial primary key,
     "user_id" integer not null,

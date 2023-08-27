@@ -1,1 +1,1 @@
-newman run ./"dz9.postman_collection.json"
+newman run ./"dz11.postman_collection.json"

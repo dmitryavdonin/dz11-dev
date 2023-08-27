@@ -1,4 +1,3 @@
-drop table if exists "user";
 CREATE TABLE "user" (
     "id" serial primary key,
     "username" varchar not null,
